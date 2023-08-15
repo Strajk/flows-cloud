@@ -1,0 +1,15 @@
+name: Staging Supabase DB deployment
+
+on: workflow_dispatch
+
+jobs:
+  deploy:
+    runs-on: [self-hosted]
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          path: './stage-db'
+      - run: docker compose down
+        working-directory: './stage-db/infrastructure/supabase-db'
+      - run: docker compose up -d 
+        working-directory: './stage-db/infrastructure/supabase-db'
