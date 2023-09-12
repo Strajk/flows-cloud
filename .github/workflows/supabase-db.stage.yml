@@ -4,12 +4,16 @@ on: workflow_dispatch
 
 jobs:
   deploy:
+    env:
+      SUPABASE_ENV: ${{ secrets.SUPABASE_DB_STAGE_ENV }}
     runs-on: [self-hosted]
     steps:
       - uses: actions/checkout@v3
         with:
-          path: './stage-db'
+          path: "./stage-db"
+      - run: echo $SUPABASE_ENV > .env
+        working-directory: "./stage-db/infrastructure/supabase-db"
       - run: docker compose down
-        working-directory: './stage-db/infrastructure/supabase-db'
-      - run: docker compose up -d 
-        working-directory: './stage-db/infrastructure/supabase-db'
+        working-directory: "./stage-db/infrastructure/supabase-db"
+      - run: docker compose up -d
+        working-directory: "./stage-db/infrastructure/supabase-db"
