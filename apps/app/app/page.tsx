@@ -1,7 +1,7 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { Button } from "@ui/components/button";
 import { cookies } from "next/headers";
 import Link from "next/link";
+import { Button } from "ui";
 
 export const dynamic = "force-dynamic";
 
@@ -25,8 +25,8 @@ export default async function Index() {
                 Hey, {user.email}!
                 <form action="/auth/sign-out" method="post">
                   <button
-                    type="submit"
                     className="py-2 px-4 rounded-md no-underline bg-btn-background hover:bg-btn-background-hover"
+                    type="submit"
                   >
                     Logout
                   </button>
@@ -34,8 +34,8 @@ export default async function Index() {
               </div>
             ) : (
               <Link
-                href="/login"
                 className="py-2 px-4 rounded-md no-underline bg-btn-background hover:bg-btn-background-hover"
+                href="/login"
               >
                 Login
               </Link>
