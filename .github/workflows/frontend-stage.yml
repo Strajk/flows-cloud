@@ -1,0 +1,31 @@
+name: Staging Frontend deployment
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: [self-hosted]
+    strategy:
+      matrix:
+        app: [app, web]
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          path: "./stage-fe"
+      - run: docker build -t docker.flows.sh/${{matrix.app}}-frontend-stage:${{github.sha}} -f infrastructure/docker/next.Dockerfile --build-arg APP=${{matrix.app}} .
+        working-directory: "./stage-fe"
+
+  deploy-app:
+    needs: [build]
+    runs-on: [self-hosted]
+    steps:
+      - run: docker run -d --restart always -p 6001:3000 --name flows-app-frontend-stage docker.flows.sh/app-frontend-stage:${{github.sha}}
+
+  deploy-web:
+    needs: [build]
+    runs-on: [self-hosted]
+    steps:
+      - run: docker run -d --restart always -p 6002:3000 --name flows-web-frontend-stage docker.flows.sh/web-frontend-stage:${{github.sha}}
