@@ -6,7 +6,7 @@ import { css } from "@flows/styled-system/css";
 
 export const dynamic = "force-dynamic";
 
-export default async function Index(): JSX.Element {
+export default async function Index(): Promise<JSX.Element> {
   const supabase = createServerComponentClient({ cookies });
 
   const {
