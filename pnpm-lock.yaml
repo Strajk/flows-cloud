@@ -69,6 +69,9 @@ importers:
 
   apps/design-system:
     dependencies:
+      icons:
+        specifier: workspace:*
+        version: link:../../packages/icons
       react:
         specifier: ^18.2.0
         version: 18.2.0
@@ -185,6 +188,21 @@ importers:
       eslint-plugin-storybook:
         specifier: ^0.6.13
         version: 0.6.13(eslint@8.49.0)(typescript@5.2.2)
+
+  packages/icons:
+    devDependencies:
+      eslint-config-custom:
+        specifier: workspace:*
+        version: link:../eslint-config-custom
+      react:
+        specifier: ^18.2.0
+        version: 18.2.0
+      tsconfig:
+        specifier: workspace:*
+        version: link:../tsconfig
+      typescript:
+        specifier: ^5.2.2
+        version: 5.2.2
 
   packages/tsconfig: {}
 
