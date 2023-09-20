@@ -220,6 +220,9 @@ importers:
       eslint-config-custom:
         specifier: workspace:*
         version: link:../eslint-config-custom
+      icons:
+        specifier: workspace:*
+        version: link:../icons
       react:
         specifier: ^18.2.0
         version: 18.2.0
