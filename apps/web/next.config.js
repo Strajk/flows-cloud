@@ -1,12 +1,13 @@
-import path from "path";
-import { fileURLToPath } from "url";
+const { createContentlayerPlugin } = require("next-contentlayer");
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const path = require("node:path");
+
+const withContentlayer = createContentlayerPlugin();
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  swcMinify: true,
   transpilePackages: ["ui"],
   output: "standalone",
   experimental: {
@@ -14,4 +15,4 @@ const nextConfig = {
   },
 };
 
-export default nextConfig;
+module.exports = withContentlayer(nextConfig);
