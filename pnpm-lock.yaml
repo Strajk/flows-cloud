@@ -180,9 +180,12 @@ importers:
       '@radix-ui/react-slot':
         specifier: ^1.0.2
         version: 1.0.2(@types/react@18.2.21)(react@18.2.0)
-      next:
-        specifier: ^13.4.19
-        version: 13.4.19(@babel/core@7.23.2)(@opentelemetry/api@1.6.0)(react-dom@18.2.0)(react@18.2.0)
+      react:
+        specifier: ^18.2.0
+        version: 18.2.0
+      react-dom:
+        specifier: ^18.2.0
+        version: 18.2.0(react@18.2.0)
     devDependencies:
       '@pandacss/dev':
         specifier: ^0.17.0
@@ -223,9 +226,6 @@ importers:
       icons:
         specifier: workspace:*
         version: link:../icons
-      react:
-        specifier: ^18.2.0
-        version: 18.2.0
       storybook:
         specifier: ^7.5.1
         version: 7.5.1
