@@ -41,6 +41,10 @@ importers:
       ui:
         specifier: workspace:*
         version: link:../../packages/ui
+    optionalDependencies:
+      '@flows/styled-system':
+        specifier: link:node_modules/@flows/pandacss
+        version: link:node_modules/@flows/pandacss
     devDependencies:
       '@next/eslint-plugin-next':
         specifier: ^13.4.19
@@ -108,6 +112,10 @@ importers:
       ui:
         specifier: workspace:*
         version: link:../../packages/ui
+    optionalDependencies:
+      '@flows/styled-system':
+        specifier: link:node_modules/@flows/pandacss
+        version: link:node_modules/@flows/pandacss
     devDependencies:
       '@next/eslint-plugin-next':
         specifier: ^13.4.19
@@ -183,6 +191,10 @@ importers:
       react-dom:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
+    optionalDependencies:
+      '@flows/styled-system':
+        specifier: link:node_modules/@flows/pandacss
+        version: link:node_modules/@flows/pandacss
     devDependencies:
       '@pandacss/dev':
         specifier: ^0.17.0
