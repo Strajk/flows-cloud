@@ -165,6 +165,9 @@ importers:
 
   packages/icons:
     devDependencies:
+      '@types/react':
+        specifier: ^18.2.21
+        version: 18.2.21
       eslint-config-custom:
         specifier: workspace:*
         version: link:../eslint-config-custom
