@@ -77,8 +77,8 @@ importers:
         specifier: ^1.0.4
         version: 1.0.4(@types/react-dom@18.2.7)(@types/react@18.2.21)(react-dom@18.2.0)(react@18.2.0)
       '@rbnd/flows':
-        specifier: 0.0.14
-        version: 0.0.14
+        specifier: 0.0.15
+        version: 0.0.15
       bright:
         specifier: ^0.8.4
         version: 0.8.4(react@18.2.0)
@@ -4392,8 +4392,8 @@ packages:
       '@babel/runtime': 7.22.15
     dev: true
 
-  /@rbnd/flows@0.0.14:
-    resolution: {integrity: sha512-HiHYTHFm2o5Z0L9YESFpiQsEjUgXip0pYs+gcBgIUpUhI6U68GCf3BEEcNsVKxyTcgVlI5KZPH1aN8BYLHq5/g==}
+  /@rbnd/flows@0.0.15:
+    resolution: {integrity: sha512-mFkdxNW6PawE1dyCSUMm7I0Mc7oMXLbz9OAqXVLrJ3TuU5BdAOBwG5pLkDfFFyBphi0lbV/B9jND3puCZXMCsA==}
     dependencies:
       '@floating-ui/dom': 1.5.3
     dev: false
