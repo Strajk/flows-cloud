@@ -1,5 +1,6 @@
-import Link from "next/link";
-import Messages from "./messages";
+import Link from 'next/link';
+
+import Messages from './messages';
 
 export default function Login(): JSX.Element {
   return (
@@ -21,7 +22,7 @@ export default function Login(): JSX.Element {
           xmlns="http://www.w3.org/2000/svg"
         >
           <polyline points="15 18 9 12 15 6" />
-        </svg>{" "}
+        </svg>{' '}
         Back
       </Link>
 
@@ -49,7 +50,10 @@ export default function Login(): JSX.Element {
           required
           type="password"
         />
-        <button className="bg-green-700 rounded px-4 py-2 text-white mb-2" type="submit">
+        <button
+          className="bg-green-700 rounded px-4 py-2 text-white mb-2"
+          type="submit"
+        >
           Sign In
         </button>
         <button
