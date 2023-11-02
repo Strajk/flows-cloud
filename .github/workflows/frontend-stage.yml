@@ -18,6 +18,8 @@ jobs:
         working-directory: "./stage-fe"
       - run: docker build -t docker.flows.sh/web-frontend-stage:${{github.sha}} -f infrastructure/docker/next.Dockerfile --build-arg APP=web .
         working-directory: "./stage-fe"
+      - run: docker build -t docker.flows.sh/docs-frontend-stage:${{github.sha}} -f infrastructure/docker/next.Dockerfile --build-arg APP=docs .
+        working-directory: "./stage-fe"
 
   deploy:
     needs: [build]
@@ -29,3 +31,5 @@ jobs:
       - run: docker stop flows-web-frontend-stage
       - run: docker rm flows-web-frontend-stage
       - run: docker run -d --restart always -p 6002:3000 --name flows-web-frontend-stage docker.flows.sh/web-frontend-stage:${{github.sha}}
+      - run: docker rm flows-docs-frontend-stage
+      - run: docker run -d --restart always -p 6003:3000 --name flows-docs-frontend-stage docker.flows.sh/docs-frontend-stage:${{github.sha}}
