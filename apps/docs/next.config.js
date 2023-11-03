@@ -1,8 +1,14 @@
 const path = require("node:path");
 
+const withNextra = require("nextra")({
+  theme: "nextra-theme-docs",
+  themeConfig: "./src/theme.config.tsx",
+});
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  swcMinify: true,
   transpilePackages: ["ui"],
   output: "standalone",
   experimental: {
@@ -11,4 +17,4 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
+module.exports = withNextra(nextConfig);

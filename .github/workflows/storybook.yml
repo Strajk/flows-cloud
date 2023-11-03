@@ -3,11 +3,11 @@ name: Storybook deployment
 on:
   push:
     branches:
-      - main
+      - dev
 
 jobs:
   deploy:
-    runs-on: [self-hosted]
+    runs-on: [self-hosted, stage-env]
     steps:
       - uses: actions/checkout@v3
         with:
@@ -16,4 +16,4 @@ jobs:
         working-directory: "./storybook"
       - run: docker stop flows-storybook
       - run: docker rm flows-storybook
-      - run: docker run -d --restart always -p 6003:80 --name flows-storybook docker.flows.sh/storybook:${{github.sha}}
+      - run: docker run -d --restart always -p 6004:80 --name flows-storybook docker.flows.sh/storybook:${{github.sha}}
