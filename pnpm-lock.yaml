@@ -96,6 +96,9 @@ importers:
         specifier: link:node_modules/@flows/pandacss
         version: link:node_modules/@flows/pandacss
     devDependencies:
+      '@next/eslint-plugin-next':
+        specifier: ^14.0.0
+        version: 14.0.0
       '@pandacss/dev':
         specifier: 0.17.0
         version: 0.17.0(@internationalized/date@3.5.0)(@types/node@17.0.45)(@types/react-dom@18.2.7)(@types/react@18.2.21)(typescript@5.2.2)

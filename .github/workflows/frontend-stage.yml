@@ -3,11 +3,11 @@ name: Staging Frontend deployment
 on:
   push:
     branches:
-      - main
+      - dev
 
 jobs:
   build:
-    runs-on: [self-hosted]
+    runs-on: [self-hosted, stage-env]
     steps:
       - uses: actions/checkout@v3
         with:
@@ -23,7 +23,7 @@ jobs:
 
   deploy:
     needs: [build]
-    runs-on: [self-hosted]
+    runs-on: [self-hosted, stage-env]
     steps:
       - run: docker stop flows-app-frontend-stage
       - run: docker rm flows-app-frontend-stage

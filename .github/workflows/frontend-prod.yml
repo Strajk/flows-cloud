@@ -1,0 +1,41 @@
+name: Production Frontend deployment
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: [self-hosted, stage-env]
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          path: "./prod-fe"
+      - run: echo ${{ secrets.APP_PROD_ENV }} | base64 --decode > apps/app/.env
+        working-directory: "./prod-fe"
+      - run: docker build -t docker.flows.sh/app-frontend-prod:${{github.sha}} -f infrastructure/docker/next.Dockerfile --build-arg APP=app .
+        working-directory: "./prod-fe"
+      - run: docker build -t docker.flows.sh/web-frontend-prod:${{github.sha}} -f infrastructure/docker/next.Dockerfile --build-arg APP=web .
+        working-directory: "./prod-fe"
+      - run: docker build -t docker.flows.sh/docs-frontend-prod:${{github.sha}} -f infrastructure/docker/next.Dockerfile --build-arg APP=docs .
+        working-directory: "./prod-fe"
+      - run: docker push docker.flows.sh/app-frontend-prod:${{github.sha}}
+      - run: docker push docker.flows.sh/web-frontend-prod:${{github.sha}}
+      - run: docker push docker.flows.sh/docs-frontend-prod:${{github.sha}}
+
+  deploy:
+    needs: [build]
+    runs-on: [self-hosted, prod-env]
+    steps:
+      - run: docker pull docker.flows.sh/app-frontend-prod:${{github.sha}}
+      - run: docker pull docker.flows.sh/web-frontend-prod:${{github.sha}}
+      - run: docker pull docker.flows.sh/docs-frontend-prod:${{github.sha}}
+      - run: docker stop flows-app-frontend-prod
+      - run: docker rm flows-app-frontend-prod
+      - run: docker run -d --restart always -p 6001:3000 --name flows-app-frontend-prod docker.flows.sh/app-frontend-prod:${{github.sha}}
+      - run: docker stop flows-web-frontend-prod
+      - run: docker rm flows-web-frontend-prod
+      - run: docker run -d --restart always -p 6002:3000 --name flows-web-frontend-prod docker.flows.sh/web-frontend-prod:${{github.sha}}
+      - run: docker rm flows-docs-frontend-prod
+      - run: docker run -d --restart always -p 6003:3000 --name flows-docs-frontend-prod docker.flows.sh/docs-frontend-prod:${{github.sha}}
