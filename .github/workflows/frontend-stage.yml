@@ -31,5 +31,6 @@ jobs:
       - run: docker stop flows-web-frontend-stage
       - run: docker rm flows-web-frontend-stage
       - run: docker run -d --restart always -p 6002:3000 --name flows-web-frontend-stage docker.flows.sh/web-frontend-stage:${{github.sha}}
+      - run: docker stop flows-docs-frontend-stage
       - run: docker rm flows-docs-frontend-stage
       - run: docker run -d --restart always -p 6003:3000 --name flows-docs-frontend-stage docker.flows.sh/docs-frontend-stage:${{github.sha}}
