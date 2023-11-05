@@ -126,6 +126,9 @@ importers:
       '@rbnd/flows':
         specifier: 0.0.15
         version: 0.0.15
+      '@rbnd/react-dark-mode':
+        specifier: ^2.0.1
+        version: 2.0.1(react@18.2.0)
       contentlayer:
         specifier: ^0.3.4
         version: 0.3.4(esbuild@0.18.20)
@@ -4644,6 +4647,14 @@ packages:
     resolution: {integrity: sha512-mFkdxNW6PawE1dyCSUMm7I0Mc7oMXLbz9OAqXVLrJ3TuU5BdAOBwG5pLkDfFFyBphi0lbV/B9jND3puCZXMCsA==}
     dependencies:
       '@floating-ui/dom': 1.5.3
+    dev: false
+
+  /@rbnd/react-dark-mode@2.0.1(react@18.2.0):
+    resolution: {integrity: sha512-C8Lswd6Z3CVE1L/8uQWq6LJoZHeoa8JUuzSAUXXeIDKZfuqU5YheBT8e5xTxmlsm3M7XyKrB5+Lh5nJB2+f9kQ==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      react: 18.2.0
     dev: false
 
   /@rollup/pluginutils@5.0.4:
