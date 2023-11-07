@@ -2,8 +2,8 @@ import "./globals.css";
 
 import localFont from "next/font/local";
 
-export const MonaSans = localFont({
-  src: "../../public/fonts/Mona-Sans.woff2",
+const MonaSans = localFont({
+  src: "../fonts/Mona-Sans.woff2",
   display: "swap",
   variable: "--font-mona-sans",
 });
