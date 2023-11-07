@@ -1,9 +1,10 @@
-name: Staging Frontend deployment
+name: Staging deployment
 
 on:
   push:
     branches:
       - dev
+      - feat/backend
 
 jobs:
   build:
@@ -11,15 +12,17 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          path: "./stage-fe"
+          path: "./stage-deploy"
       - run: echo ${{ secrets.APP_STAGE_ENV }} | base64 --decode > apps/app/.env
-        working-directory: "./stage-fe"
+        working-directory: "./stage-deploy"
       - run: docker build -t docker.flows.sh/app-frontend-stage:${{github.sha}} -f infrastructure/docker/next.Dockerfile --build-arg APP=app .
-        working-directory: "./stage-fe"
+        working-directory: "./stage-deploy"
       - run: docker build -t docker.flows.sh/web-frontend-stage:${{github.sha}} -f infrastructure/docker/next.Dockerfile --build-arg APP=web .
-        working-directory: "./stage-fe"
+        working-directory: "./stage-deploy"
       - run: docker build -t docker.flows.sh/docs-frontend-stage:${{github.sha}} -f infrastructure/docker/next.Dockerfile --build-arg APP=docs .
-        working-directory: "./stage-fe"
+        working-directory: "./stage-deploy"
+      - run: docker build -t docker.flows.sh/backend-stage:${{github.sha}} -f infrastructure/docker/nest.Dockerfile .
+        working-directory: "./stage-deploy"
 
   deploy:
     needs: [build]
@@ -34,3 +37,6 @@ jobs:
       - run: docker stop flows-docs-frontend-stage
       - run: docker rm flows-docs-frontend-stage
       - run: docker run -d --restart always -p 6003:3000 --name flows-docs-frontend-stage docker.flows.sh/docs-frontend-stage:${{github.sha}}
+      - run: docker stop flows-backend-stage
+      - run: docker rm flows-backend-stage
+      - run: docker run -d --restart always -p 6005:3000 --name flows-backend-stage docker.flows.sh/backend-stage:${{github.sha}}
