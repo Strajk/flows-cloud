@@ -162,6 +162,9 @@ importers:
       remark-gfm:
         specifier: ^3.0.1
         version: 3.0.1
+      shared:
+        specifier: workspace:*
+        version: link:../../packages/shared
       ui:
         specifier: workspace:*
         version: link:../../packages/ui
@@ -224,6 +227,18 @@ importers:
       react:
         specifier: ^18.2.0
         version: 18.2.0
+      tsconfig:
+        specifier: workspace:*
+        version: link:../tsconfig
+      typescript:
+        specifier: ^5.2.2
+        version: 5.2.2
+
+  packages/shared:
+    devDependencies:
+      eslint-config-custom:
+        specifier: workspace:*
+        version: link:../eslint-config-custom
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
