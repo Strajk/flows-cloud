@@ -15,7 +15,7 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }): JSX.Element {
   return (
-    <html className={`${MonaSans.variable}`} lang="en">
+    <html className={`${MonaSans.variable}`} lang="en" suppressHydrationWarning>
       <body>
         <main className="min-h-screen bg-background flex flex-col items-center">{children}</main>
       </body>
