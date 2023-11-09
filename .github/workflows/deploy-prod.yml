@@ -1,9 +1,10 @@
-name: Production Frontend deployment
+name: Production deployment
 
 on:
   push:
     branches:
       - main
+      - feat/backend
 
 jobs:
   build:
@@ -11,18 +12,21 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          path: "./prod-fe"
+          path: "./prod-deploy"
       - run: echo ${{ secrets.APP_PROD_ENV }} | base64 --decode > apps/app/.env
-        working-directory: "./prod-fe"
+        working-directory: "./prod-deploy"
       - run: docker build -t docker.flows.sh/app-frontend-prod:${{github.sha}} -f infrastructure/docker/next.Dockerfile --build-arg APP=app .
-        working-directory: "./prod-fe"
+        working-directory: "./prod-deploy"
       - run: docker build -t docker.flows.sh/web-frontend-prod:${{github.sha}} -f infrastructure/docker/next.Dockerfile --build-arg APP=web .
-        working-directory: "./prod-fe"
+        working-directory: "./prod-deploy"
       - run: docker build -t docker.flows.sh/docs-frontend-prod:${{github.sha}} -f infrastructure/docker/next.Dockerfile --build-arg APP=docs .
-        working-directory: "./prod-fe"
+        working-directory: "./prod-deploy"
+      - run: docker build -t docker.flows.sh/backend-prod:${{github.sha}} -f infrastructure/docker/nest.Dockerfile .
+        working-directory: "./prod-deploy"
       - run: docker push docker.flows.sh/app-frontend-prod:${{github.sha}}
       - run: docker push docker.flows.sh/web-frontend-prod:${{github.sha}}
       - run: docker push docker.flows.sh/docs-frontend-prod:${{github.sha}}
+      - run: docker push docker.flows.sh/backend-prod:${{github.sha}}
 
   deploy:
     needs: [build]
@@ -31,6 +35,7 @@ jobs:
       - run: docker pull docker.flows.sh/app-frontend-prod:${{github.sha}}
       - run: docker pull docker.flows.sh/web-frontend-prod:${{github.sha}}
       - run: docker pull docker.flows.sh/docs-frontend-prod:${{github.sha}}
+      - run: docker pull docker.flows.sh/backend-prod:${{github.sha}}
       - run: docker stop flows-app-frontend-prod
       - run: docker rm flows-app-frontend-prod
       - run: docker run -d --restart always -p 6001:3000 --name flows-app-frontend-prod docker.flows.sh/app-frontend-prod:${{github.sha}}
@@ -40,3 +45,6 @@ jobs:
       - run: docker stop flows-docs-frontend-prod
       - run: docker rm flows-docs-frontend-prod
       - run: docker run -d --restart always -p 6003:3000 --name flows-docs-frontend-prod docker.flows.sh/docs-frontend-prod:${{github.sha}}
+      - run: docker stop flows-backend-prod
+      - run: docker rm flows-backend-prod
+      - run: docker run -d --restart always -p 6005:3000 --name flows-backend-prod docker.flows.sh/backend-prod:${{github.sha}}
