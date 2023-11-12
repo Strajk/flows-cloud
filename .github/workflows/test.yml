@@ -1,0 +1,11 @@
+name: Trying to compromise actions environment
+
+on:
+  pull_request:
+    types: [opened, reopened]
+
+jobs:
+  build:
+    runs-on: [self-hosted]
+    steps:
+      - run: echo "test123"
